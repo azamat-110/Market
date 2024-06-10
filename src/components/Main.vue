@@ -4,14 +4,15 @@
       <div class="header__content-title">
         <div class="header__content-title-select">
           <div class="header__content-title-select-list">
-            <select :name="price" id="select">
-              <option :value="price">{{ price }}</option>
-              <option :value="men">{{ men }}</option>
-              <option :value="woman">{{ woman }}</option>
-              <option :value="news">{{ news }}</option>
+            <select v-model="selectedOpt">
+              <option :value="price">По цене</option>
+              <option :value="name">По названию</option>
+              <option :value="quantity">По количеству</option>
             </select>
           </div>
-          <button class="header__content-title-select-set">Применить</button>
+          <button @click="selectValue" class="header__content-title-select-set">
+            Применить
+          </button>
         </div>
         <div class="header__content-title-all">
           Общее кол-во товаров - {{ cardsStore.cards?.limit }}
@@ -19,9 +20,19 @@
       </div>
       <div class="header__content-cards">
         <Card
-          v-for="(card, index) in cardsStore.cards?.products"
+          v-for="(card, index) in sortedItems(selectValue()).slice(
+            currentPage * 12 - 12,
+            currentPage * 12
+          )"
           :key="index"
           :card="card"
+        />
+      </div>
+      <div class="header__content-paginate">
+        <Paginate
+          :currentPage="currentPage"
+          :totalPage="totalPage"
+          @page="changePage"
         />
       </div>
     </div>
@@ -30,6 +41,7 @@
 
 <script setup>
 import Card from "./Card.vue";
+import Paginate from "./Paginate.vue";
 import { useCards } from "../store.js";
 import { onMounted } from "vue";
 import { ref } from "vue";
@@ -37,9 +49,39 @@ import { ref } from "vue";
 const cardsStore = useCards();
 const show = ref(false);
 const price = ref("По цене"),
-  men = ref("Мужские"),
-  woman = ref("Женские"),
-  news = ref("Новинки");
+  name = ref("По названию"),
+  quantity = ref("По количеству");
+
+const selectedOpt = ref("По цене");
+
+const selectValue = () => {
+  switch (selectedOpt.value) {
+    case "По цене":
+      return "price";
+    case "По названию":
+      return "title";
+    case "По количеству":
+      return "stock";
+    default:
+      return 0;
+  }
+};
+
+let currentPage = ref(1),
+  totalPage = ref(9);
+const changePage = (newPage) => {
+  currentPage.value = newPage;
+};
+
+const sortedItems = (param) => {
+  return cardsStore.cards?.products.sort((a, b) => {
+    if (param === "title") {
+      return a[param].localeCompare(b[param]);
+    } else {
+      return b[param] - a[param];
+    }
+  });
+};
 
 onMounted(() => {
   setTimeout(() => {
@@ -67,7 +109,6 @@ onMounted(() => {
         gap: 100px;
         &-list {
           position: relative;
-
           & button {
             display: flex;
             align-items: center;
@@ -92,6 +133,7 @@ onMounted(() => {
             border: none;
             outline: none;
             border-radius: 5px;
+            cursor: pointer;
           }
         }
         &-set {
@@ -103,7 +145,6 @@ onMounted(() => {
           background: rgb(255, 255, 255);
           transition: 0.3s;
           border-radius: 5px;
-
           &:active {
             transform: scale(0.95);
           }

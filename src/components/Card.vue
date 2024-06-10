@@ -9,6 +9,9 @@
       <div class="card__price">
         <p>{{ card.price }} $</p>
         <p>{{ card.stock }}</p>
+        <p v-if="Math.floor(card.discountPercentage)" class="card__sale">
+          {{ Math.floor(card.discountPercentage) }}%
+        </p>
         <button>Купить</button>
       </div>
     </div>
@@ -29,6 +32,7 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  position: relative;
   &__img {
     height: 315px;
     display: flex;
@@ -43,7 +47,7 @@ const props = defineProps({
     color: rgb(6, 47, 66);
     font-family: "Montserrat";
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 20px;
     padding-top: 32px;
     padding-bottom: 20px;
@@ -95,6 +99,19 @@ const props = defineProps({
         transform: scale(0.95);
       }
     }
+  }
+  &__sale {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: rgb(6, 47, 66);
+    font-family: "Montserrat";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    background: #d1d1d1;
   }
 }
 </style>

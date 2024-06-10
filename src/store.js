@@ -10,9 +10,13 @@ export const useCards = defineStore({
         async getCards() {
             try {
                 const url = `https://dummyjson.com/products?limit=100`;
-                const response = await axios.get(url);
+                const response = await axios.get(url, {
+                    headers: {
+                        accept: 'application/json',
+                    },
+                });
                 this.cards = response.data;
-                console.log(this.cards);
+                console.log(this.cards.products);
             } catch (error) {
                 console.log(error);
             }

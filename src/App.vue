@@ -13,6 +13,7 @@ import Load from "./components/Load.vue";
 import { useCards } from "./store.js";
 import { onMounted, computed } from "vue";
 
+
 const cardsStore = useCards();
 
 onMounted(() => {
