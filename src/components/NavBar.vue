@@ -1,9 +1,9 @@
 <template>
   <nav class="nav">
     <div class="nav__content container">
-      <a href="" class="nav__content-logo">
+      <router-link to="/"   class="nav__content-logo">
         <img src="../assets/images/nike.svg" alt="nike" />
-      </a>
+      </router-link>
       <ul class="nav__list">
         <li>
           <router-link class="nav__list-link" to="/"> Новинки </router-link>
@@ -26,7 +26,7 @@
       </button>
     </div>
   </nav>
-</template>
+</template> 
 
 <script setup>
 </script>

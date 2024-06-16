@@ -18,8 +18,8 @@ const props = defineProps(['currentPage', 'totalPage']);
     padding-top: 50px;
     gap: 30px;
     & button {
-        background: #232323;
-        color: #ffffff;
+        background: #ffffff;
+        color: #000000;
         padding: 15px 20px;
         font-family: "Montserrat";
         font-weight: 700;

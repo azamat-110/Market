@@ -5,8 +5,8 @@
         <div class="header__content-title-select">
           <div class="header__content-title-select-list">
             <select v-model="selectedOpt">
-              <option :value="price">По цене</option>
               <option :value="name">По названию</option>
+              <option :value="price">По цене</option>
               <option :value="quantity">По количеству</option>
             </select>
           </div>
@@ -52,7 +52,7 @@ const price = ref("По цене"),
   name = ref("По названию"),
   quantity = ref("По количеству");
 
-const selectedOpt = ref("По цене");
+const selectedOpt = ref("По названию");
 
 const selectValue = () => {
   switch (selectedOpt.value) {

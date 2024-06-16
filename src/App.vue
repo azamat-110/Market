@@ -1,7 +1,7 @@
 <template>
   <div v-if="cardList">
     <NavBar />
-    <Main />
+    <Main/>
   </div>
   <Load v-else />
 </template>
@@ -13,15 +13,14 @@ import Load from "./components/Load.vue";
 import { useCards } from "./store.js";
 import { onMounted, computed } from "vue";
 
-
 const cardsStore = useCards();
 
 onMounted(() => {
-        cardsStore.getCards();
+  cardsStore.getCards();
 });
 
 const cardList = computed(() => {
-    return cardsStore.cards?.products;
+  return cardsStore.cards?.products;
 });
 </script>
 

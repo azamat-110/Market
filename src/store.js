@@ -16,7 +16,7 @@ export const useCards = defineStore({
                     },
                 });
                 this.cards = response.data;
-                console.log(this.cards.products);
+                // console.log(this.cards.products);
             } catch (error) {
                 console.log(error);
             }

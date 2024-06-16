@@ -1,21 +1,21 @@
 <template>
-  <div class="container card">
-    <div class="card__img">
-      <img :src="card.images[0]" alt="card_img" />
-    </div>
-    <div class="card__info">
-      <div class="card__title">{{ card.title }}</div>
-      <div class="card__descr">{{ card.description }}</div>
-      <div class="card__price">
-        <p>{{ card.price }} $</p>
-        <p>{{ card.stock }}</p>
-        <p v-if="Math.floor(card.discountPercentage)" class="card__sale">
-          {{ Math.floor(card.discountPercentage) }}%
-        </p>
-        <button>Купить</button>
+  <router-link :to="'/cardInfo:' + 1" class="container card">
+      <div class="card__img">
+        <img :src="card.images[0]" alt="card_img" />
       </div>
-    </div>
-  </div>
+      <div class="card__info">
+        <div class="card__title">{{ card.title }}</div>
+        <div class="card__descr">{{ card.description }}</div>
+        <div class="card__price">
+          <p>{{ card.price }} $</p>
+          <p>{{ card.stock }}</p>
+          <p v-if="Math.floor(card.discountPercentage)" class="card__sale">
+            {{ Math.floor(card.discountPercentage) }}%
+          </p>
+          <button>Купить</button>
+        </div>
+      </div>
+  </router-link>
 </template>
 
 <script setup>
