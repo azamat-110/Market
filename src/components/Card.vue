@@ -1,10 +1,10 @@
 <template>
-  <router-link :to="'/cardInfo:' + 1" class="container card">
+  <router-link to="/cardInfo:id" class="container card" @click="navigateToCard(card.id)">
       <div class="card__img">
         <img :src="card.images[0]" alt="card_img" />
       </div>
       <div class="card__info">
-        <div class="card__title">{{ card.title }}</div>
+        <div class="card__title">{{ card.title}}</div>
         <div class="card__descr">{{ card.description }}</div>
         <div class="card__price">
           <p>{{ card.price }} $</p>
@@ -19,8 +19,14 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const navigateToCard = (id) => {
+  router.push({ name: 'CardInfo', params: { id } });
+};
 const props = defineProps({
   card: Object,
+  index: Number
 });
 </script>
 

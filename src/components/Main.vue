@@ -26,6 +26,7 @@
           )"
           :key="index"
           :card="card"
+          :index="index"
         />
       </div>
       <div class="header__content-paginate">

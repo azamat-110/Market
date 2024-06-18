@@ -1,31 +1,27 @@
 <template>
   <div class="card__info container">
     <h2 class="card__info-title">
-      {{ cadsInfo[index].title }}
+      {{ card.title }}
     </h2>
-    <img :src="cadsInfo[index].images[0]" alt="" />
+    <img :src="card.images[0]" alt="" />
     <div class="card__info-about">
-      <p><span>Brand</span>: {{ cadsInfo[index].brand }}</p>
-      <p><span>Category</span>: {{ cadsInfo[index].category }}</p>
-      <p><span>Rating</span>: {{ cadsInfo[index].rating }}</p>
-      <p><span>Warranty</span>: {{ cadsInfo[index].warrantyInformation }}</p>
-      <p>span: {{ cadsInfo[index].price }} $</p>
+      <p><span>Category</span>: {{ card.category }}</p>
+      <p><span>Rating</span>: {{ card.rating }}</p>
+      <p><span>Warranty</span>: {{ card.warrantyInformation }}</p>
+      <p><span>Price</span>: {{ card.price }} $</p>
     </div>
   </div>
 </template>
   
   <script setup>
 import { useCards } from "../store.js";
-import { ref } from "vue";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const cardsStore = useCards();
-console.log(cardsStore.cards?.products[0]);
-
-const cadsInfo = cardsStore.cards?.products;
-const index = ref(0);
-// const props = defineProps({
-//   card: Object,
-// });
+const cardId = route.params.id;
+const cardsInfo = cardsStore.cards?.products;
+const card = cardsInfo.find((c) => c.id == cardId);
 </script>
   
   <style lang="scss" scoped>
@@ -48,7 +44,7 @@ const index = ref(0);
 
   & img {
     max-width: 100%;
-    max-height: 415px;
+    max-height: 315px;
   }
 
   &-about {

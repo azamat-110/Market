@@ -1,14 +1,17 @@
 <template>
   <div v-if="cardList">
     <NavBar />
-    <Main/>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
   <Load v-else />
 </template>
 
 <script setup>
 import NavBar from "./components/NavBar.vue";
-import Main from "./components/Main.vue";
 import Load from "./components/Load.vue";
 import { useCards } from "./store.js";
 import { onMounted, computed } from "vue";
@@ -25,4 +28,14 @@ const cardList = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 </style>
